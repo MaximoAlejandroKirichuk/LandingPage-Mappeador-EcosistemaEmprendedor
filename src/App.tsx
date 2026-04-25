@@ -166,9 +166,12 @@ function App() {
           </p>
           <div className="hero-actions">
             <a className="primary-action" href="#validacion">
-              Participar en la validación
+              Completar formulario de validación
             </a>
-            <span>Proyecto en etapa de validación temprana.</span>
+            <span className="cta-hint">
+              Te toma menos de 2 minutos y nos ayuda a priorizar qué construir
+              primero.
+            </span>
           </div>
           <p className="support">
             Corte de avance: 24 de abril de 2026. La plataforma se encuentra en
@@ -320,9 +323,21 @@ function App() {
             sobre necesidades específicas que una plataforma de estas
             características debería cubrir.
           </p>
+          <ul className="validation-points" aria-label="Razones para participar">
+            <li>Tu respuesta impacta en el alcance del primer MVP.</li>
+            <li>Priorizamos funcionalidades según señales reales de demanda.</li>
+            <li>Contactamos solo para avances relevantes del proyecto.</li>
+          </ul>
         </div>
 
         <form className="interest-form" onSubmit={handleSubmit}>
+          <div className="form-intro">
+            <strong>Formulario breve de validación</strong>
+            <p>
+              Compartí tu interés y necesidad principal. Leemos cada envío y
+              usamos esta información para definir el roadmap.
+            </p>
+          </div>
           <label>
             Nombre y apellido
             <input
@@ -409,7 +424,9 @@ function App() {
             type="submit"
             disabled={status === 'sending'}
           >
-            {status === 'sending' ? 'Enviando...' : 'Enviar interés'}
+            {status === 'sending'
+              ? 'Enviando...'
+              : 'Quiero participar de la validación'}
           </button>
           {statusMessage && (
             <p className={`form-status ${status}`}>{statusMessage}</p>
@@ -428,6 +445,9 @@ function App() {
           convertir el relevamiento en una herramienta más útil para UAI y sus
           potenciales aliados.
         </p>
+        <a className="primary-action secondary-cta" href="#validacion">
+          Completar formulario ahora
+        </a>
       </section>
     </main>
   )
