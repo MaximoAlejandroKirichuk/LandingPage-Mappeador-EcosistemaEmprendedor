@@ -71,4 +71,4 @@ export default defineConfig([
   },
 ])
 ```
-# LandingPage-Mappeador-EcosistemaEmprendedor
+# Mapeo del Ecosistema Emprendedor UAI
