@@ -235,16 +235,17 @@ a:focus-visible {
 
 .section-block.muted .section-heading {
   display: grid;
-  grid-template-columns: minmax(180px, 0.32fr) minmax(0, 1fr);
-  align-items: end;
-  gap: 34px;
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 12px;
   max-width: 1080px;
   margin: 0 auto 28px;
 }
 
-.section-block.muted .section-heading .eyebrow {
+
+.section-block.muted .eyebrow {
   width: fit-content;
-  margin-bottom: 2px;
+  margin-bottom: 12px;
 }
 
 .section-block.muted .section-heading h2 {

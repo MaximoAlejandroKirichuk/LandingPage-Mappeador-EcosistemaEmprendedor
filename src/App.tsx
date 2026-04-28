@@ -164,8 +164,8 @@ function App() {
       </section>
 
       <section className="section-block muted" aria-labelledby="estado-title">
+        <p className="eyebrow">Estado actual</p>
         <div className="section-heading">
-          <p className="eyebrow">Estado actual</p>
           <h2 id="estado-title">
             Una base que ya funciona como insumo para análisis y futura
             visualización.
