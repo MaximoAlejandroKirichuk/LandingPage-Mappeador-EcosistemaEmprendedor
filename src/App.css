@@ -221,15 +221,37 @@ a:focus-visible {
 }
 
 .section-block.muted {
+  box-sizing: border-box;
   width: 100%;
   max-width: none;
   margin: 0;
-  padding: 82px max(22px, calc((100% - 1200px) / 2));
+  padding: 78px max(22px, calc((100% - 1200px) / 2));
   background:
-    linear-gradient(180deg, rgba(232, 241, 234, 0.72), rgba(226, 236, 230, 0.72)),
-    radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.36), transparent 45%);
+    linear-gradient(135deg, rgba(248, 251, 249, 0.94), rgba(229, 239, 233, 0.88)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(230, 238, 232, 0.45));
   border-top: 1px solid color-mix(in srgb, var(--accent) 12%, #ffffff);
   border-bottom: 1px solid color-mix(in srgb, var(--accent) 12%, #ffffff);
+}
+
+.section-block.muted .section-heading {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.32fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 34px;
+  max-width: 1080px;
+  margin: 0 auto 28px;
+}
+
+.section-block.muted .section-heading .eyebrow {
+  width: fit-content;
+  margin-bottom: 2px;
+}
+
+.section-block.muted .section-heading h2 {
+  max-width: 860px;
+  margin-bottom: 0;
+  font-size: clamp(2rem, 3.3vw, 3.45rem);
+  line-height: 1.04;
 }
 
 .section-heading {
@@ -314,8 +336,46 @@ a:focus-visible {
 
 .proof-row {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: 1.05fr 0.95fr 1.15fr 0.85fr;
+  gap: 14px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.proof-row div {
+  position: relative;
+  overflow: hidden;
+  min-height: 116px;
+  padding: 22px;
+  border-color: color-mix(in srgb, var(--accent) 16%, #ffffff);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 251, 249, 0.86)),
+    var(--surface);
+  box-shadow: 0 18px 32px -30px rgba(15, 38, 29, 0.9);
+}
+
+.proof-row div::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--accent), var(--green));
+}
+
+.proof-row div:first-child {
+  background:
+    linear-gradient(145deg, rgba(31, 103, 77, 0.96), rgba(45, 138, 104, 0.92)),
+    var(--accent);
+}
+
+.proof-row div:first-child::before {
+  background: rgba(255, 255, 255, 0.48);
+}
+
+.proof-row div:first-child strong,
+.proof-row div:first-child span {
+  color: #ffffff;
 }
 
 .finding-list {
@@ -538,6 +598,12 @@ a:focus-visible {
     grid-template-columns: 1fr 1fr;
   }
 
+  .section-block.muted .section-heading {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+
   .form-copy {
     position: static;
   }
@@ -590,6 +656,20 @@ a:focus-visible {
   .closing-section {
     padding-top: 58px;
     padding-bottom: 58px;
+  }
+
+  .section-block.muted {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .section-block.muted .section-heading h2 {
+    font-size: clamp(1.85rem, 8vw, 2.55rem);
+  }
+
+  .proof-row div {
+    min-height: 104px;
+    padding: 18px;
   }
 
   .hero-section {
