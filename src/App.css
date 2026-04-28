@@ -1,9 +1,95 @@
 main {
+  position: relative;
   overflow: hidden;
+  background: var(--bg);
+  isolation: isolate;
+}
+
+main > section {
+  position: relative;
+  z-index: 1;
+}
+
+.landing-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bg-layer {
+  position: absolute;
+}
+
+.bg-gradient {
+  inset: -12% -6% -10% -6%;
   background:
-    radial-gradient(circle at 7% 8%, rgba(226, 190, 125, 0.22), transparent 38%),
-    radial-gradient(circle at 91% 18%, rgba(42, 122, 95, 0.17), transparent 40%),
+    radial-gradient(circle at 7% 8%, rgba(226, 190, 125, 0.24), transparent 42%),
+    radial-gradient(circle at 91% 18%, rgba(42, 122, 95, 0.2), transparent 42%),
+    radial-gradient(circle at 75% 88%, rgba(150, 187, 86, 0.18), transparent 40%),
     linear-gradient(180deg, rgba(250, 252, 250, 0.94), rgba(245, 248, 246, 0.96));
+  transform: translate3d(0, var(--parallax-sm, 0px), 0);
+  transition: transform 260ms ease-out;
+}
+
+.bg-orb {
+  border-radius: 999px;
+  opacity: 0.7;
+  filter: blur(1px);
+  animation: orb-pulse 14s ease-in-out infinite;
+}
+
+.orb-one {
+  top: -140px;
+  left: -120px;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(226, 190, 125, 0.62),
+    rgba(226, 190, 125, 0) 70%
+  );
+  transform: translate3d(0, var(--parallax-md, 0px), 0);
+}
+
+.orb-two {
+  top: 20%;
+  right: -140px;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(41, 125, 97, 0.5),
+    rgba(41, 125, 97, 0) 70%
+  );
+  animation-delay: -6s;
+  transform: translate3d(0, var(--parallax-lg, 0px), 0);
+}
+
+.orb-three {
+  bottom: -170px;
+  left: 18%;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(150, 187, 86, 0.48),
+    rgba(150, 187, 86, 0) 70%
+  );
+  animation-delay: -10s;
+  transform: translate3d(0, var(--parallax-sm, 0px), 0);
+}
+
+.bg-grid {
+  inset: 0;
+  background-image:
+    linear-gradient(90deg, rgba(32, 68, 53, 0.05) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(32, 68, 53, 0.05) 1px, transparent 1px);
+  background-size: 140px 140px;
+  opacity: 0.35;
+  transform: translate3d(0, var(--parallax-md, 0px), 0);
+  animation: grid-drift 22s linear infinite;
 }
 
 .hero-section,
@@ -420,6 +506,14 @@ a:focus-visible {
     transform: none;
     transition: none;
   }
+
+  .bg-layer,
+  .bg-orb,
+  .bg-grid {
+    animation: none;
+    transform: none;
+    transition: none;
+  }
 }
 
 .tag-list span {
@@ -714,5 +808,24 @@ a:focus-visible {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes orb-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+@keyframes grid-drift {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 140px 140px;
   }
 }
