@@ -54,7 +54,7 @@ export function InterestForm({ organizationTypes, interestTypes }: Props) {
     }
 
   
-    return <form className="interest-form" onSubmit={handleSubmit}>
+    return <form className="interest-form reveal" onSubmit={handleSubmit}>
         <div className="form-intro">
         <strong>Formulario breve de validación</strong>
         <p>

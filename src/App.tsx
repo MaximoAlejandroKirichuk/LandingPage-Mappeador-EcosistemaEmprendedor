@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+import type { CSSProperties } from 'react'
 import './App.css'
 import { InterestForm } from './components/InterestForm'
 
@@ -63,10 +65,42 @@ const interestTypes = [
 ]
 
 function App() {
+  useEffect(() => {
+    const elements = Array.from(document.querySelectorAll('.reveal'))
+
+    if (!('IntersectionObserver' in window)) {
+      elements.forEach((element) => element.classList.add('is-visible'))
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px 0px -10% 0px',
+      }
+    )
+
+    elements.forEach((element) => observer.observe(element))
+
+    return () => observer.disconnect()
+  }, [])
+
+  const revealStyle = (index: number, baseDelay = 0): CSSProperties => ({
+    '--delay': `${baseDelay + index * 90}ms`,
+  })
+
   return (
     <main>
       <section className="hero-section" aria-labelledby="hero-title">
-        <div className="hero-copy">
+        <div className="hero-copy reveal" style={revealStyle(0)}>
           <p className="eyebrow">Mapeo del Ecosistema Emprendedor UAI</p>
           <h1 id="hero-title">
             Ordenar el ecosistema emprendedor para convertir información
@@ -93,7 +127,11 @@ function App() {
           </p>
         </div>
 
-        <div className="hero-panel" aria-label="Resumen del relevamiento">
+        <div
+          className="hero-panel reveal"
+          style={revealStyle(1, 120)}
+          aria-label="Resumen del relevamiento"
+        >
           <div className="panel-header">
             <span>Base estructurada</span>
             <strong>27 registros</strong>
@@ -109,8 +147,12 @@ function App() {
             </div>
           </div>
           <div className="category-bars">
-            {categories.map((category) => (
-              <div className="bar-row" key={category.label}>
+            {categories.map((category, index) => (
+              <div
+                className="bar-row reveal"
+                key={category.label}
+                style={revealStyle(index, 120)}
+              >
                 <span>{category.label}</span>
                 <div className="bar-track">
                   <div
@@ -128,15 +170,19 @@ function App() {
       </section>
 
       <section className="section-block" aria-labelledby="problema-title">
-        <div className="section-heading">
+        <div className="section-heading reveal" style={revealStyle(0)}>
           <p className="eyebrow">Problema</p>
           <h2 id="problema-title">
             La información existe, pero todavía cuesta aprovecharla.
           </h2>
         </div>
         <div className="card-grid three">
-          {problems.map((problem) => (
-            <article className="info-card" key={problem.title}>
+          {problems.map((problem, index) => (
+            <article
+              className="info-card reveal"
+              key={problem.title}
+              style={revealStyle(index, 120)}
+            >
               <h3>{problem.title}</h3>
               <p>{problem.text}</p>
             </article>
@@ -145,7 +191,7 @@ function App() {
       </section>
 
       <section className="split-section" aria-labelledby="enfoque-title">
-        <div>
+        <div className="reveal" style={revealStyle(0)}>
           <p className="eyebrow">Enfoque de resolución</p>
           <h2 id="enfoque-title">
             Relevar, ordenar, actualizar y convertir datos en decisiones.
@@ -157,34 +203,36 @@ function App() {
           </p>
         </div>
         <ol className="step-list">
-          {approach.map((item) => (
-            <li key={item}>{item}</li>
+          {approach.map((item, index) => (
+            <li key={item} className="reveal" style={revealStyle(index, 140)}>
+              {item}
+            </li>
           ))}
         </ol>
       </section>
 
       <section className="section-block muted" aria-labelledby="estado-title">
-        <p className="eyebrow">Estado actual</p>
-        <div className="section-heading">
+        <p className="eyebrow reveal" style={revealStyle(0)}>Estado actual</p>
+        <div className="section-heading reveal" style={revealStyle(1, 120)}>
           <h2 id="estado-title">
             Una base que ya funciona como insumo para análisis y futura
             visualización.
           </h2>
         </div>
         <div className="proof-row">
-          <div>
+          <div className="reveal" style={revealStyle(0, 160)}>
             <strong>27</strong>
             <span>registros consolidados</span>
           </div>
-          <div>
+          <div className="reveal" style={revealStyle(1, 160)}>
             <strong>5</strong>
             <span>categorías iniciales</span>
           </div>
-          <div>
+          <div className="reveal" style={revealStyle(2, 160)}>
             <strong>Base</strong>
             <span>con atributos para comparar</span>
           </div>
-          <div>
+          <div className="reveal" style={revealStyle(3, 160)}>
             <strong>MVP</strong>
             <span>en dirección funcional</span>
           </div>
@@ -192,7 +240,7 @@ function App() {
       </section>
 
       <section className="split-section" aria-labelledby="hallazgos-title">
-        <div>
+        <div className="reveal" style={revealStyle(0)}>
           <p className="eyebrow">Hallazgos</p>
           <h2 id="hallazgos-title">
             El valor no está solo en la cantidad, sino en la estructura y
@@ -200,14 +248,16 @@ function App() {
           </h2>
         </div>
         <div className="finding-list">
-          {findings.map((finding) => (
-            <p key={finding}>{finding}</p>
+          {findings.map((finding, index) => (
+            <p key={finding} className="reveal" style={revealStyle(index, 120)}>
+              {finding}
+            </p>
           ))}
         </div>
       </section>
 
       <section className="section-block" aria-labelledby="audiencia-title">
-        <div className="section-heading">
+        <div className="section-heading reveal" style={revealStyle(0)}>
           <p className="eyebrow">Para quién</p>
           <h2 id="audiencia-title">
             Pensado para organizaciones que necesitan articular con mejor
@@ -215,8 +265,14 @@ function App() {
           </h2>
         </div>
         <div className="tag-list">
-          {audiences.map((audience) => (
-            <span key={audience}>{audience}</span>
+          {audiences.map((audience, index) => (
+            <span
+              key={audience}
+              className="reveal"
+              style={revealStyle(index, 120)}
+            >
+              {audience}
+            </span>
           ))}
         </div>
       </section>
@@ -226,7 +282,7 @@ function App() {
         id="validacion"
         aria-labelledby="validacion-title"
       >
-        <div className="form-copy">
+        <div className="form-copy reveal" style={revealStyle(0)}>
           <p className="eyebrow">Validación externa</p>
           <h2 id="validacion-title">
             Queremos conocer qué información sería más relevante para
@@ -251,7 +307,7 @@ function App() {
         />
       </section>
 
-      <section className="closing-section" aria-labelledby="cierre-title">
+      <section className="closing-section reveal" aria-labelledby="cierre-title">
         <p className="eyebrow">Próximo paso</p>
         <h2 id="cierre-title">
           Validar interés real antes de avanzar con más desarrollo.

@@ -133,6 +133,21 @@ a:focus-visible {
   animation: lift-in 720ms ease 110ms both;
 }
 
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 520ms ease,
+    transform 520ms ease;
+  transition-delay: var(--delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .panel-header {
   display: flex;
   justify-content: space-between;
@@ -397,6 +412,14 @@ a:focus-visible {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 .tag-list span {
